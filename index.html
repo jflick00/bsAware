@@ -9,8 +9,6 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.1.0/sketchy/bootstrap.min.css"> -->
-   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -22,8 +20,7 @@
             height: 100%;
             width: 100%;
             margin: 0;
-            padding: 0;;
-            
+            padding: 0;
         }
 
         body { 
@@ -62,7 +59,7 @@
             margin: -75px 0 0 -75px;
             border-radius: 50%;
             border: 3px solid transparent;
-            border-top-color: #3498db;
+            border-top-color: #32CD32;
             -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
             animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
         }
@@ -164,6 +161,7 @@
             width: 50%;
             border: 4px solid #f9c922;
             padding: 10px;
+            align: center;
         }
 
         #continue-button {
@@ -180,36 +178,41 @@
             box-shadow: 5px 15px 30px black;
         }
         #location-input{
-
-            
+            width: 60%;
+            align-content: center;
         }
-
+        #add-location{
+            align: center;
+        }
+        #condition-input{
+            width: 100%;
+            height: 200px;
+        }
+        #conditionOfBike{
+            color:black;
+        }
     </style>
 </head>
 
     <div id="loader-wrapper">
-        <div id="loader"></div>
-     
+        <div id="loader"></div>     
         <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-     
+        <div class="loader-section section-right"></div> 
     </div>
 
     <div id="content">
             <center><h2>bsAware!</h2></center>
-            <center><p>A Bike Share Compliance Reporting App</p></center>
+            <center><p>A bike share compliance reporting app specificially designed for Charlotte, NC</p></center>
     </div>
-
 
     <div id="map"></div>
     
     <form id="LocationSearch">
-        <div class="container-fluid">
-        <input type="text" id="location-input" placeholder="66 Highway to hell">
-        <!-- Button triggers new movie to be added -->
-        <input id="add-location" class="btn btn-primary" type="submit" value="Search Location">
+        <input type="text" id="location-input" placeholder="Intersection of Trade Street and Tryon Street">
+        <!-- Button triggers new input to be added -->
+        <input type="submit" id="add-location" class="btn btn-primary" value="Search for Location">
     </form>
-    </div>
+
     <button type="button" id="continue-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
         Continue
     </button>
@@ -228,32 +231,27 @@
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-4"><button type="button" class="btn btn-success">Lime Bike</button></div>
-                                <div class="col-md-5 ml-auto">In what condition is our bike?</div>
+                                <div class="col-md-3 ml-auto"><button class="btn w3-yellow">Ofo</button></div>
+                                <div class="col-md-3 ml-auto"><button type="button" class="btn btn-success">LimeBike</button></div>
+                                <div class="col-md-3 ml-auto"><button type="button" class="btn btn-warning">Spin</button></div>
+                                <div class="col-md-3 ml-auto"><button class="btn btn-danger">Mobike</button></div>
                             </div>
+                            <br>
                             <div class="row">
-                                <div class="col-md-4 ml-auto"><button class="btn w3-yellow">Ofo</button></div>
-                                <div class="col-lg-5 ml-auto">
-
+                                    <div class="col-md-12 ml-auto" id="conditionOfBike">Would you like to add any addition information about the condition of this bike?</div>
                                         <form id="bike-condition">
-                                                <input type="text" id="condition-input" placeholder="Spray painted to shit">
-                                                <!-- Button triggers new movie to be added -->
-                                                <input id="add-condition" type="submit" value="Submit">
-                                            </form>
+                                            <input type="text" id="condition-input" placeholder="Please type condition of the bike here...">
+                                            <type="submit" value="Submit">
+                                        </form>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3 ml-auto"><button type="button" class="btn btn-warning">Spin</button></div>
-                            </div>
-                            <div class="row">
-                                    <div class="col-md-2 ml-auto"><button class="btn btn-danger">Mobike</button></div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" input id="add-condition" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
