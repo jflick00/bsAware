@@ -1,53 +1,357 @@
 <!DOCTYPE html>
 <html lang="EN-US">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="./assets/css/reset.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="./assets/css/style.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<title>Bikeshare Aware</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.1.0/sketchy/bootstrap.min.css"> -->
+   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
-<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
+        html, #viewDiv {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;;
+            
+        }
+
+        body { 
+            background-image: url('Bike_background.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center; 
+            background-color: darkslategray; 
+            color: #ffffff;
+}
+        #content {
+
+        }
+        /*
+            Splash screen animation credits all go to @ihatetomatoes:
+            https://ihatetomatoes.net/create-custom-preloading-screen/
+        */
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background-color: darkslategray;
+            opacity: 1.0;
+            transition: opacity 2s ease;
+        }
+        #loader {
+            display: block;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #3498db;
+            -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+            animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+        }
+        #loader:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #e74c3c;
+            -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+            animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+        }
+        #loader:after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #f9c922;
+            -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+            animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+        }
+        
+        .loaded #loader {
+            opacity: 0;
+            -webkit-transition: all 4s ease-out; 
+            transition: all 4s ease-out;
+        }
+        .loaded #loader-wrapper  {
+            -webkit-transition: all 4s 4s ease-out; 
+            transition: all 4s 4s ease-out;
+        }
+        .loaded #loader-wrapper {
+        -webkit-transform: translateY(-100%);
+            -ms-transform: translateY(-100%);
+                transform: translateY(-100%);
+ 
+        -webkit-transition: all 0.1s 1.6s ease-out; 
+                transition: all 0.1s 1.6s ease-out;
+        }
+
+        @-webkit-keyframes spin {
+            0%   {
+                -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(0deg);  /* IE 9 */
+                transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+            }
+            100% {
+                -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(360deg);  /* IE 9 */
+                transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+            }
+        }
+        @keyframes spin {
+            0%   {
+                -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(0deg);  /* IE 9 */
+                transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+            }
+            100% {
+                -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(360deg);  /* IE 9 */
+                transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+            }
+        }
+
+        /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
 
         #map {
             height: 100%;
-            }
-        html, body {
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+
+        html,
+        body {
             height: 100%;
             margin: 0;
             padding: 0;
-            }
+        }
+
+        #map {
+            margin: 30px auto;
+            height: 60%;
+            width: 70%;
+        }
+
+        #LocationSearch {
+            clear: both;
+            margin: auto;
+            width: 50%;
+            border: 4px solid #f9c922;
+            padding: 10px;
+        }
+
+        #continue-button {
+            position: absolute;
+            margin: 0 auto;
+            margin-top:10px;
+            margin-left: 570px;
+            width: 200px;
+
+        }
+        #map{
+            
+            padding: 10px;
+            box-shadow: 5px 15px 30px black;
+        }
+        #location-input{
+
+            
+        }
+
     </style>
-        <div id="map"></div>
-        <script>
-            var map;
-            function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: 35.227311, lng: -80.843063},
-                    zoom: 14
-                });
-            }
-        </script>
-        <!-- Just playing with a modal boxes trying to figure it out
-        <a href="#openModal">Open</a>
-        <div id="openModal" class="modalDialog">
-            <div>
-                <a href="#close" title="Close" class="close">X</a>
-                <h2>bsAware Report</h2>
-                <p>Thank you for reporting an incorrectly parked bike share vehicle!</p>
-                
+</head>
+
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+     
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+     
+    </div>
+
+    <div id="content">
+            <center><h2>bsAware!</h2></center>
+            <center><p>A Bike Share Compliance Reporting App</p></center>
+    </div>
+
+
+    <div id="map"></div>
+    
+    <form id="LocationSearch">
+        <div class="container-fluid">
+        <input type="text" id="location-input" placeholder="66 Highway to hell">
+        <!-- Button triggers new movie to be added -->
+        <input id="add-location" class="btn btn-primary" type="submit" value="Search Location">
+    </form>
+    </div>
+    <button type="button" id="continue-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Continue
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Which Company does this bike belong to?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4"><button type="button" class="btn btn-success">Lime Bike</button></div>
+                                <div class="col-md-5 ml-auto">In what condition is our bike?</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 ml-auto"><button class="btn w3-yellow">Ofo</button></div>
+                                <div class="col-lg-5 ml-auto">
+
+                                        <form id="bike-condition">
+                                                <input type="text" id="condition-input" placeholder="Spray painted to shit">
+                                                <!-- Button triggers new movie to be added -->
+                                                <input id="add-condition" type="submit" value="Submit">
+                                            </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 ml-auto"><button type="button" class="btn btn-warning">Spin</button></div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-2 ml-auto"><button class="btn btn-danger">Mobike</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
-        --> 
+    </div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG1N5cPFoOM5gvJJXqUarW1vRws76WKQw&callback=initMap"
-    type="text/javascript">
-    
-    </script>
+
 
 </body>
+
+<script>
+    $('body').toggleClass('loaded');
+    $("#continue-button").hide();
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 35.227311, lng: -80.843063 },
+            zoom: 8
+        });
+    }
+
+
+    $("#add-location").on("click", function (event) {
+        event.preventDefault();
+        var address = $("#location-input").val().trim();
+
+        // Here we construct our URL
+        var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyB8HwQtM9WLoXW7-UrQLJtVXE4fhAdjrjA";
+
+
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+
+            console.log(response)
+
+            $("#continue-button").show();
+
+            console.log($("#location-input").val().trim());
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: response.results[0].geometry.location,
+                zoom: 17
+            });
+
+            var marker = new google.maps.Marker({
+
+                position: response.results[0].geometry.location,
+                map: map,
+
+                title: 'Hello World!'
+            });
+
+
+
+            /*  var confirmbtn = $("<input>");
+              confirmbtn.addClass("btn")
+              confirmbtn.addClass("btn-primary")
+              confirmbtn.attr("id", "confirm-location");
+              confirmbtn.attr("type", "input");
+              confirmbtn.attr("value", "Confirm location and continue");
+              confirmbtn.attr("data-toggle", "modal")
+              confirmbtn.attr("data-target", "#exampleModalCenter")
+              $("#LocationSearch").append(confirmbtn);
+            */
+        })
+        
+        $("body").on("click", "#continue-button", function (event) {
+            event.preventDefault();          
+            $(".modal").modal({
+            show: true,
+            closeOnEscape: true
+            });
+            
+});
+
+        })
+        
+        //ADD ZOOM LIMITER LATER
+
+    
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW3acitxf9tvobjzQP5apcmRTEKNcnLkU&callback=initMap" async
+    defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
