@@ -231,9 +231,11 @@
     #exampleModalLongTitle {
         color: Black;
     }
+
     #title_img{
         width: 40%;
     }
+
 </style>
 </head>
 
@@ -245,10 +247,12 @@
 
 <div id="content">
     <center>
+
         
     </center>
     <center>
         <img id="title_img" src="assets/bsbanner.png">
+
     </center>
 </div>
 
@@ -279,6 +283,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-3 ml-auto">
+
                                 <button class=" company btn w3-yellow">Ofo</button>
                             </div>
                             <div class="col-md-3 ml-auto">
@@ -289,6 +294,7 @@
                             </div>
                             <div class="col-md-3 ml-auto">
                                 <button class="company btn btn-danger">Mobike</button>
+
                             </div>
                         </div>
                         <br>
@@ -306,7 +312,10 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
             <button type="button" input id="add-condition" class="btn btn-primary" data-dismiss="modal">Submit</button>
+
+
         </div>
     </div>
 </div>
@@ -444,7 +453,7 @@
 
                 markersArray.push(marker)
 
-                console.log(response)
+
 
                 /*  var confirmbtn = $("<input>");
                   confirmbtn.addClass("btn")
@@ -465,7 +474,8 @@
         //ADD ZOOM LIMITER LATER
         $("body").on("click", "#continue-button", function (event) {
             event.preventDefault();
-   //----------------------------------------------------------
+/*
+  ----------------------------------------------------------
 var addressValidator = require('address-validator');
 var Address = addressValidator.Address;
 var _ = require('underscore');
@@ -500,8 +510,12 @@ addressValidator.validate(address, addressValidator.match.streetAddress, functio
 
 
 
-            //--------------------------------------------------
+            --------------------------------------------------
 if(valid_address === true){
+
+*/
+
+
             console.log("hi")
             if (latlng.type === "Address") {
                 $("#exampleModalLongTitle").text($("#location-input").val().trim())
@@ -512,6 +526,7 @@ if(valid_address === true){
                 console.log("coords")
             }
             console.log("hi")
+
         }
            
         });
@@ -533,28 +548,35 @@ if(valid_address === true){
 
         if(latlng.type === "Address"){
             message_string = "Company Name: " + latlng.company + "\n" + "Bike Location: " + latlng.address  + "\n" + "Comments: " + latlng.comments;
+
             $.ajax({
                 method: "GET",
                 url: "http://localhost:3000",
                 data: {
+
                     address: message_string
                     
+
                     
                     
                 }
             }).done();
         }
         if(latlng.type === "Coords"){
+
             var message_string = "Company Name: " + latlng.company + "\n" + "Bike location Pinned at: " +"(" + "Lat: " + latlng.lat.toFixed(4) + " Lng: " + latlng.lng.toFixed(4) + ")" + "\n" + "Comments: " + latlng.comments;
+
             $.ajax({
                 method: "GET",
                 url: "http://localhost:3000",
                 data: {
+
                     address: message_string
                 }
             }).done();
         }
         
+
         });
 
 
